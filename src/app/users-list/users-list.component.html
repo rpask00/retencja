@@ -1,1 +1,34 @@
-<p>users-list works!</p>
+<section class="mt-5 container">
+  <p-table (onLazyLoad)="loadUsers($event)"
+           [totalRecords]="totalRecords"
+           [rowHover]="true"
+           [lazy]="true"
+           [rowsPerPageOptions]="[5,10,15]"
+           [rows]="5"
+           [paginator]="true" [value]="users">
+    <ng-template pTemplate="header">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Favourite</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td><img class="avatar" [src]="user.avatar"></td>
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{user.email}}</td>
+        <td>
+          <button mat-icon-button class="star" [class.is_favourite]="user.is_favourite"
+                  (click)="toggle_user_is_favourite(user.id)">
+            <mat-icon>{{user.is_favourite ? 'star' : 'star_border'}}</mat-icon>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</section>
