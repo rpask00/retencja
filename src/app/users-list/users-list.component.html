@@ -1,11 +1,28 @@
 <section class="mt-5 container">
-  <p-table (onLazyLoad)="loadUsers($event)"
+  <p-table (onLazyLoad)="set_pager_and_load($event)"
            [totalRecords]="totalRecords"
            [rowHover]="true"
            [lazy]="true"
            [rowsPerPageOptions]="[5,10,15]"
-           [rows]="5"
-           [paginator]="true" [value]="users">
+           [rows]="pager.rows"
+           [paginator]="true" [value]="users"
+           [globalFilterFields]="['name','country.name','representative.name','status']">
+    <ng-template pTemplate="caption">
+      <div class="table-header d-flex justify-content-between align-items-center">
+        <p class="m-0"> List of Users</p>
+        <section class="pi-filters " [formGroup]="filterForm">
+          <div class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input formControlName="first_name" pInputText type="text" placeholder="Search by name"/>
+          </div>
+
+          <div class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input formControlName="last_name" pInputText type="text" placeholder="Search by last name"/>
+          </div>
+        </section>
+      </div>
+    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th></th>
