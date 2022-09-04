@@ -41,12 +41,12 @@ export class UsersService {
   }
 
   get_user_is_favourite(id: number): boolean {
-    const is_favourite = this._store.get_item(this._get_user_is_favourite_store_key(id))
+    const is_favourite = this._store.get_item(this._store.get_user_is_favourite_store_key(id))
     return is_favourite != null ? JSON.parse(is_favourite) : false
   }
 
   set_user_is_favourite(id: number, is_favourite: boolean) {
-    this._store.set_item(this._get_user_is_favourite_store_key(id), is_favourite)
+    this._store.set_item(this._store.get_user_is_favourite_store_key(id), is_favourite)
   }
 
   toggle_user_is_favourite(id: number) {
@@ -54,7 +54,5 @@ export class UsersService {
     this.set_user_is_favourite(id, !is_favourite);
   }
 
-  private _get_user_is_favourite_store_key(id: number) {
-    return `$user-${id}-is_favourite`
-  }
+
 }
