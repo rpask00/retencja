@@ -18,7 +18,7 @@ export class UserDetailsComponent implements OnInit {
     private _userService: UsersService
   ) {
     this.userId = parseInt(this._route.snapshot.paramMap.get("userId") || '0', 10)
-    this.user$ = this._userService.get_user(this.userId)
+    this.user$ = this._userService.get_user$(this.userId)
   }
 
   ngOnInit(): void {

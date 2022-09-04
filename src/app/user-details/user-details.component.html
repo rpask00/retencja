@@ -1,4 +1,6 @@
 <section class="wrapper pt-5" *ngIf="user$| async as user">
+  <h1 class="p-card-title">User details</h1>
+
   <p-card class="mt-5" header="{{user.first_name}}  {{user.last_name}}" subheader="{{user.email}}">
     <ng-template pTemplate="header">
       <div class="header">

@@ -24,8 +24,7 @@ export interface User {
 @Injectable()
 export class UsersService {
 
-  readonly base_resource = "https://reqres.in/api";
-
+  readonly resource = "https://reqres.in/api/users";
 
   constructor(
     private _http: HttpClient,
@@ -33,18 +32,14 @@ export class UsersService {
   ) {
   }
 
-
-  get_users(page: number = 0, per_page: number = 10): Observable<GetUsersResponse> {
-
-    return this._http.get<GetUsersResponse>(`${this.base_resource}/users?page=${page}&per_page=${per_page}`)
+  get_users$(page: number = 0, per_page: number = 10): Observable<GetUsersResponse> {
+    return this._http.get<GetUsersResponse>(`${this.resource}?page=${page}&per_page=${per_page}`)
   }
 
-  get_user(id: number): Observable<User> {
-    return this._http.get<{ data: User }>(`${this.base_resource}/users/${id}`).pipe(map(response => response.data))
+  get_user$(id: number): Observable<User> {
+    return this._http.get<{ data: User }>(`${this.resource}/${id}`).pipe(map(response => response.data))
   }
 
-
-  // TODO: move to separate service?
   get_user_is_favourite(id: number): boolean {
     const is_favourite = this._store.get_item(this._get_user_is_favourite_store_key(id))
     return is_favourite != null ? JSON.parse(is_favourite) : false
@@ -57,11 +52,9 @@ export class UsersService {
   toggle_user_is_favourite(id: number) {
     const is_favourite = this.get_user_is_favourite(id);
     this.set_user_is_favourite(id, !is_favourite);
-
   }
 
   private _get_user_is_favourite_store_key(id: number) {
     return `$user-${id}-is_favourite`
   }
-
 }

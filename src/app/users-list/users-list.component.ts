@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {User, UsersService} from "../services/users.service";
 import {FormControl, FormGroup} from "@angular/forms";
+import {Utils} from "../utils";
 
 interface Pager {
   first: number,
@@ -42,13 +43,14 @@ export class UsersListComponent implements OnInit {
     const {first, rows} = this.pager;
     const page = Math.floor(first / rows) + 1;
 
-    const {first_name, last_name} = this.filterForm.value;
 
-    this._usersService.get_users(page, rows).subscribe(response => {
+    this._usersService.get_users$(page, rows).subscribe(response => {
       this.totalRecords = response.total;
-      this.users = response.data.filter(user =>
-        this._is_sub_string(user.first_name, first_name as string) &&
-        this._is_sub_string(user.last_name, last_name as string)
+      this.users = response.data.filter(user => {
+          const {first_name, last_name} = this.filterForm.value;
+          return Utils.is_sub_string(user.first_name, first_name!) &&
+            Utils.is_sub_string(user.last_name, last_name!);
+        }
       ).map(user => ({
         ...user,
         is_favourite: this._usersService.get_user_is_favourite(user.id)
@@ -63,10 +65,5 @@ export class UsersListComponent implements OnInit {
     if (user) {
       user.is_favourite = this._usersService.get_user_is_favourite(id)
     }
-  }
-
-
-  private _is_sub_string(base: string, sub_string: string): boolean {
-    return base.toLowerCase().includes(sub_string.toLowerCase())
   }
 }
