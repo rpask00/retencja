@@ -1,0 +1,27 @@
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  width: 300px;
+
+  .header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    img {
+      width: fit-content;
+    }
+  }
+
+  .go-back-btn{
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+p-card ::ng-deep {
+  .p-card-footer {
+    display: flex;
+    justify-content: end;
+  }
+}

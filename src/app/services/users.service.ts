@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {StorageService} from "../services/storage.service";
+import {map, Observable} from "rxjs";
+import {StorageService} from "./storage.service";
+
 
 export interface GetUsersResponse {
   page: number,
@@ -23,7 +24,7 @@ export interface User {
 @Injectable()
 export class UsersService {
 
-  readonly base_resource = "https://reqres.in/api/users/";
+  readonly base_resource = "https://reqres.in/api";
 
 
   constructor(
@@ -34,7 +35,12 @@ export class UsersService {
 
 
   get_users(page: number = 0, per_page: number = 10): Observable<GetUsersResponse> {
-    return this._http.get<GetUsersResponse>(`${this.base_resource}?page=${page}&per_page=${per_page}`)
+
+    return this._http.get<GetUsersResponse>(`${this.base_resource}/users?page=${page}&per_page=${per_page}`)
+  }
+
+  get_user(id: number): Observable<User> {
+    return this._http.get<{ data: User }>(`${this.base_resource}/users/${id}`).pipe(map(response => response.data))
   }
 
 

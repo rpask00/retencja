@@ -1,0 +1,22 @@
+<section class="wrapper pt-5" *ngIf="user$| async as user">
+  <p-card class="mt-5" header="{{user.first_name}}  {{user.last_name}}" subheader="{{user.email}}">
+    <ng-template pTemplate="header">
+      <div class="header">
+        <img alt="user" [src]="user.avatar">
+      </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button
+        [matTooltip]="user_is_favourite ? 'Remove from favourites' : 'Set as favourite'"
+        mat-icon-button class="star" [class.is_favourite]="user_is_favourite"
+        (click)="toggle_user_is_favourite(user.id)">
+        <mat-icon>{{user_is_favourite ? 'star' : 'star_border'}}</mat-icon>
+      </button>
+
+    </ng-template>
+
+  </p-card>
+  <section class="d-flex justify-content-center pt-3">
+    <p-button label="Go back to users list" icon="pi pi-arrow-left" routerLink="/users-list"></p-button>
+  </section>
+</section>

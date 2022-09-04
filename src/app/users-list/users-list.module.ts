@@ -4,11 +4,12 @@ import {UsersListComponent} from './users-list.component';
 import {RouterModule, Routes} from '@angular/router';
 import {TableModule} from 'primeng/table';
 import {HttpClientModule} from "@angular/common/http";
-import {UsersService} from "./users.service";
+import {UsersService} from "../services/users.service";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {InputTextModule} from "primeng/inputtext";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 const routes: Routes = [{
   path: "",
@@ -29,7 +30,8 @@ const routes: Routes = [{
     MatButtonModule,
     InputTextModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTooltipModule
   ],
   providers: [UsersService]
 })

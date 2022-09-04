@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {User, UsersService} from "./users.service";
+import {User, UsersService} from "../services/users.service";
 import {FormControl, FormGroup} from "@angular/forms";
 
 interface Pager {
